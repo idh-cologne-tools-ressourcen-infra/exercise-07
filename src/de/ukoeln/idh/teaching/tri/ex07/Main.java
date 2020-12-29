@@ -23,7 +23,8 @@ public class Main {
         Instances instances = loader.getDataSet();
         instances.setClassIndex(instances.numAttributes() - 1);
 
-        // filter data
+        // filter data:
+        // StringToVector and NumericToNominal
         StringToWordVector filter = new StringToWordVector(1000);
         WordTokenizer customTokenizer = new WordTokenizer();
         customTokenizer.setDelimiters(" \t\n.,;:'\"()?!+");
