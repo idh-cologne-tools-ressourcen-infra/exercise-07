@@ -8,18 +8,36 @@ import weka.classifiers.Evaluation;
 import weka.classifiers.rules.OneR;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
+import weka.classifiers.bayes.NaiveBayes;
+
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.NumericToNominal;
+import weka.filters.unsupervised.attribute.StringToWordVector;
+
 
 public class Main {
 	public static void main(String[] args) throws IOException, Exception {
 
-		// load data
+		//load data
 		ArffLoader loader = new ArffLoader();
 		loader.setFile(new File("data.arff"));
 		Instances instances = loader.getDataSet();
 		instances.setClassIndex(instances.numAttributes() - 1);
 
-		// train classifier
-		OneR classifier = new OneR();
+		//Filter
+		StringToWordVector filter = new StringToWordVector (1000);
+		filter.attributeIndicesTipText();
+
+		Instances filteredSet = Filter.useFilter(instances, filter);
+
+		NumericToNominal numericTN = new NumericToNominal();
+		numericTN.setAttributeIndices("first");
+		numericTN.setInputFormat(filteredSet);
+
+		Instances filteredSet1 = Filter.useFilter(filteredSet, numericTN);
+
+		//rain classifier
+		NaiveBayes classifier = new NaiveBayes();
 		classifier.buildClassifier(instances);
 
 		Evaluation eval = new Evaluation(instances);
