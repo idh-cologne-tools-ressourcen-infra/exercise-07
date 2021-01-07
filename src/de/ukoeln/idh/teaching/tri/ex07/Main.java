@@ -19,7 +19,7 @@ public class Main {
 
 		// load data
 		ArffLoader loader = new ArffLoader();
-		loader.setFile(new File("data.arff"));
+		loader.setFile(new File("data/imdb.arff"));
 		Instances instances = loader.getDataSet();
 		instances.setClassIndex(instances.numAttributes() - 1);
 
