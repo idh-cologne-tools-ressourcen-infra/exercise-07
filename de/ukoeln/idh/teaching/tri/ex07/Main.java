@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.Random;
 
 import weka.classifiers.Evaluation;
-import weka.classifiers.rules.OneR;
+import weka.classifiers.bayes.NaiveBayes;
 import weka.core.Instances;
 import weka.core.converters.ArffLoader;
 
@@ -19,7 +19,7 @@ public class Main {
 		instances.setClassIndex(instances.numAttributes() - 1);
 
 		// train classifier
-		OneR classifier = new OneR();
+		NaiveBayes classifier = new NaiveBayes();
 		classifier.buildClassifier(instances);
 
 		Evaluation eval = new Evaluation(instances);
